@@ -1,26 +1,26 @@
-import numpy as np
-from sklearn import linear_model
-from taker import Model
+from taker.data_classes import PruningConfig
+from taker.parser import cli_parser
+from taker.prune import run_pruning
+import torch
 
-def train_predictor_layer(m: Model):
-    recipe_train = """Ingredients: 1 lb chicken breasts, 2 cups broccoli florets, 1 cup sliced carrots, 1/4 cup soy sauce, 2 tbsp sesame oil, 2 tbsp honey, 2 cloves garlic (minced), 1 tsp ginger (grated), 2 cups cooked rice. Instructions: Cook chicken in sesame oil until brown. Add broccoli, carrots, garlic, and ginger. Mix soy sauce and honey, add to pan. Cook until veggies are tender. Serve over rice."""
-    stream_train = m.get_residual_stream(recipe_train).to('cpu')
+# Configure initial model and tests
+c = PruningConfig(
+    wandb_project="testing",  # repo to push results to
+    model_repo="nickypro/tinyllama-15M",
+    token_limit=1000,  # trim the input to this max length
+    run_pre_test=True,  # evaluate the unpruned model
+    # Removals parameters
+    ff_frac=0.02,  # % of feed forward neurons to prune
+    attn_frac=0.00,  # % of attention neurons to prune
+    focus="pile_codeless",  # the “reference” dataset
+    cripple="code",  # the “unlearned” dataset
+    additional_datasets=tuple(),  # any extra datasets to evaluate on
+    recalculate_activations=False,  # iterative vs non-iterative
+)
 
-    recipe_test = """Ingredients: 1 lb shrimp, 2 cups bell peppers (sliced), 1 cup pineapple chunks, 1/4 cup teriyaki sauce, 2 tbsp olive oil, 2 cloves garlic (minced), 1 tsp chili flakes, 2 cups cooked quinoa. Instructions: Sauté shrimp, peppers, and garlic in olive oil. Add pineapple, teriyaki sauce, chili flakes. Cook until shrimp are pink. Serve over quinoa. Enjoy!"""
-    stream_test = m.get_residual_stream(recipe_test).to('cpu')
+# Parse CLI for arguments
+c, args = cli_parser(c)
 
-    for layer in range(m.cfg.n_layers*2 + 1):
-        #reg = linear_model.LinearRegression()
-        reg = linear_model.LogisticRegression()
-        X_train = np.array(stream_train[layer])
-        labels = np.zeros(144)
-        labels[89:] = 1
-        X_test = np.array(stream_test[layer])
-        labels_test = np.zeros(139)
-        labels_test[82:] = 1
-        reg = reg.fit(X_train, labels)
-        score = reg.score(X_test, labels_test)
-        print('Layer', layer, score)
-
-m = Model("nickypro/tinyllama-15M")
-train_predictor_layer(m)
+# Run the iterated pruning
+with torch.no_grad():
+    model, history = run_pruning(c)
