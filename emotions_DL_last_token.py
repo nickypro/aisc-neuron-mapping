@@ -42,8 +42,7 @@ def emotion(layer, input_size, interm_layer_size):
 
         print('Training time on', h, 'dataset')
         net.train()
-        #for i in range(0, len(data_X_train)-batch_size, batch_size):
-        for i in range(0, 40, batch_size):
+        for i in range(0, len(data_X_train)-batch_size, batch_size):
             X_train_layer = torch.stack([m.get_residual_stream(data_X_train[i])[layer,-1] for i in range(batch_size)]).to(torch.float)#[batch*288]
             
             lab = data_train['label'][i:i+batch_size] # [batch_size]
