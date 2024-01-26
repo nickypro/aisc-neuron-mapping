@@ -1,0 +1,60 @@
+cross entropy for dropout value: (tinyllama-15M, layer 9, interm_layer_size=193)
+pdrop=0.5, 1.33
+pdrop=0.1, 0.96
+pdrop=0.03, 0.89
+pdrop=0,  0.85, 0.86
+
+
+
+
+Model("nickypro/tinyllama-15M")
+interm_layer_size=193
+
+Layer 0 Test score: 0.83341383934021 Accuracy: 0.6804265041888804
+Layer 1 Test score: 0.7481833100318909 Accuracy: 0.7117615058209118
+Layer 2 Test score: 0.6937666535377502 Accuracy: 0.7255576107061256
+Layer 3 Test score: 0.7080976366996765 Accuracy: 0.7262974649113263
+Layer 4 Test score: 0.8510494232177734 Accuracy: 0.6596670656076596
+Layer 5 Test score: 0.8615643978118896 Accuracy: 0.6660863888586661
+Layer 6 Test score: 0.8766350746154785 Accuracy: 0.6655423784136656
+Layer 7 Test score: 0.8692107200622559 Accuracy: 0.666935045152867
+Layer 8 Test score: 0.8724731206893921 Accuracy: 0.6728538787944729
+Layer 9 Test score: 0.9339292645454407 Accuracy: 0.6438254814492438
+Layer 10 Test score: 0.9865790009498596 Accuracy: 0.6179523446850179
+Layer 11 Test score: 1.0081079006195068 Accuracy: 0.6038298335328038
+Layer 12 Test score: 1.0929673910140991 Accuracy: 0.5657708628005658
+
+interm_layer_size=193: Layer 2 Test score: 0.6937666535377502 Accuracy: 0.7255576107061256
+interm_layer_size=198: Layer 2 Test score: 0.7173393964767456 Accuracy: 0.72007398542052
+interm_layer_size=192: Layer 2 Test score: 0.7048048973083496 Accuracy: 0.7293221629855293
+interm_layer_size=150: Layer 2 Test score: 0.7495402097702026 Accuracy: 0.7106517245131106
+
+
+
+
+Model("nickypro/tinyllama-42M")
+interm_layer_size=380:
+
+Layer 0 Test score: 0.6622077822685242 Accuracy: 0.7235556522685236
+Layer 1 Test score: 0.5618478655815125 Accuracy: 0.7719290610379719
+Layer 2 Test score: 0.6104581952095032 Accuracy: 0.7592209770427593
+Layer 3 Test score: 0.567440390586853 Accuracy: 0.7807637906647807
+Layer 4 Test score: 0.5762907266616821 Accuracy: 0.7705146338809705
+Layer 5 Test score: 0.5719181895256042 Accuracy: 0.7748667174409749
+Layer 6 Test score: 0.6586750745773315 Accuracy: 0.7376564030029377
+Layer 7 Test score: 0.6719924211502075 Accuracy: 0.7352627570449353
+Layer 8 Test score: 0.6942663192749023 Accuracy: 0.7257534544663258
+Layer 9 Test score: 0.7286089062690735 Accuracy: 0.7129583287999129
+Layer 10 Test score: 0.7030879259109497 Accuracy: 0.7221847459471222
+Layer 11 Test score: 0.7279046177864075 Accuracy: 0.712936568382113
+Layer 12 Test score: 0.7224794030189514 Accuracy: 0.7099118703079099
+
+intermed=192, Layer 2 Test score: 0.7060503959655762 Accuracy: 0.7251006419323252
+intermed=341, Layer 2 Test score: 0.6322090029716492 Accuracy: 0.7487542160809487
+intermed=380, Layer 2 Test score: 0.5961160659790039 Accuracy: 0.7614405396583614
+intermed=430, Layer 2 Test score: 0.6097985506057739 Accuracy: 0.7537155913393537
+
+
+
+
+
