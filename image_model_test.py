@@ -9,7 +9,7 @@ pruningConfig = PruningConfig(
 
     ff_frac=0.1,  # % of feed forward neurons to prune
     attn_frac=0.00,  # % of attention neurons to prune
-    focus="cifar20",  # the “reference” dataset
+    focus="cifar20-split",  # the “reference” dataset
     cripple="cifar20-veh1",  # the “unlearned” dataset
     additional_datasets=tuple(),  # any extra datasets to evaluate on
     recalculate_activations=False,  # iterative vs non-iterative
