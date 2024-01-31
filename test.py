@@ -30,4 +30,4 @@ with torch.no_grad():
     model, history = run_pruning(c)
 
 # save history file
-torch.save(history, f"tmp/{c.model_size}/history/history.pt")
+torch.save(history, f"tmp/15M/history/history.pt")
